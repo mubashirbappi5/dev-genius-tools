@@ -1,0 +1,8 @@
+{
+  "name": "dev-genius-tools",
+  "version": "1.0.0",
+  "description": "Developer toolkit with snippets and folder generator.",
+  "main": "index.js",
+  "bin": { "devgen": "./index.js" },
+  "license": "MIT"
+}
