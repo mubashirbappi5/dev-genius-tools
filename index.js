@@ -66,5 +66,32 @@ if (args[0] === "gen-folder") {
   process.exit(0);
 }
 
+
+if (args[0] === "server-setup") {
+  const serverSetupPath = path.join(generatorDir, "serverSetup.js");
+  if (!fs.existsSync(serverSetupPath)) {
+    console.log("❌ serverSetup.js not found in generator folder!");
+    process.exit(1);
+  }
+  require(serverSetupPath);
+  process.exit(0);
+}
+
+
+//// full server setup 
+
+
+if (args[0] === "full-server-setup") {
+  const setupPath = path.join(generatorDir, "fullExpressSetup.js");
+  if (!fs.existsSync(setupPath)) {
+    console.log("❌ fullExpressSetup.js not found in generator folder!");
+    process.exit(1);
+  }
+  require(setupPath);
+  process.exit(0);
+}
+
+
+
 // ======== Invalid Command ========
 console.log("❌ Invalid command. Run `devgen` for help.");
