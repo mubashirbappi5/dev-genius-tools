@@ -1,6 +1,6 @@
 {
   "name": "dev-genius-tools",      
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Developer CLI toolkit with 20+ snippets, folder generator, and server setup commands.",
   "main": "index.js",
   "bin": { 
