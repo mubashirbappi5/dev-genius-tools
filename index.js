@@ -91,6 +91,17 @@ if (args[0] === "full-server-setup") {
   process.exit(0);
 }
 
+//========= Interactive Init ========
+if (args[0] === "init") {
+  const initPath = path.join(generatorDir, "interactiveInit.js");
+  if (!fs.existsSync(initPath)) {
+    console.log("❌ interactiveInit.js not found!");
+    process.exit(1);
+  }
+  require(initPath);
+  process.exit(0);
+}
+
 
 
 // ======== Invalid Command ========

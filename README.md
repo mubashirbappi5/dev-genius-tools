@@ -1,80 +1,115 @@
-# Dev Genius Tools
+# 🚀 Dev Genius Tools
 
 <div align="center">
   <img alt="Dev Genius Tools" src="https://img.shields.io/badge/Dev%20Genius%20Tools-CLI%20Toolkit-blue" />
-  <img alt="version" src="https://img.shields.io/badge/version-1.0.0-green" />
+  <img alt="version" src="https://img.shields.io/badge/version-1.1.0-green" />
   <img alt="license" src="https://img.shields.io/badge/license-MIT-yellow" />
   <img alt="downloads" src="https://img.shields.io/npm/dt/dev-genius-tools" />
 </div>
 
-Short, fast CLI toolkit for generating snippets, scaffolding, and full Express apps — optimized for MERN workflows.
+**Dev Genius Tools** is a fast, zero-config CLI toolkit for developers to generate code snippets, scaffold folders, and create full Express servers — now with an **interactive setup experience**.
+
+Optimized for **Node.js, Express, and MERN backend workflows**.
 
 ---
 
-Table of contents
+## 📌 Table of Contents
 
 - Overview
 - Features
-- Install
-- Quick start
-- Commands & examples
-- Project structure
+- Installation
+- Quick Start
+- Commands & Usage
+- Interactive Project Setup
+- Project Structure
 - Snippets
-- Configuration
-- Contributing
+- Requirements
 - License
-- Author & contact
+- Author
 
-## Overview
+---
 
-Dev Genius Tools speeds up repetitive tasks: generate components, models, routes, middleware or scaffold entire projects with simple commands.
+## 🔍 Overview
 
-## Features
+Dev Genius Tools helps you avoid repetitive setup work by providing ready-made snippets, folder generators, and complete Express server scaffolding — all from a single CLI command.
 
-- Generate code snippets: React, Express, Mongoose, hooks, middleware
-- Full project scaffolding: folder generator, Express starter
-- CLI-first: zero-config, fast execution, cross-platform
-- Optional TypeScript output
+With **v1.1.0**, you can now create a **fully running local backend server interactively**.
 
-## Installation
+---
 
-Prerequisites:
+## ✨ Features
 
+- 📦 Generate ready-to-use code snippets:
+  - Express API
+  - Middleware
+  - MongoDB Model
+  - React Component
+  - React Hook
+  - Node.js Server
+- 🗂️ Automatic project folder generation
+- 🚀 Full Express server setup:
+  - `app.js` + `server.js`
+  - dotenv configuration
+  - Dependencies auto install
+- 🎯 **Interactive CLI setup (NEW)**
+- ⚡ Local server auto start
+- 💻 Cross-platform & beginner-friendly
+
+---
+
+## 📥 Installation
+
+### Prerequisites
 - Node.js >= 12
-- npm or yarn
+- npm / yarn / pnpm
 
-Install globally:
+### Install globally
 
-- npm:
+```bash
+
   npm install -g dev-genius-tools
 
+```
+ ## Verify:
 
-Verify:
+```bash
 devgen --version
 
-## Quick start
 
+```
+
+
+## Interactive Project Setup (NEW) 
+```bash
+
+devgen init
+
+```
+
+## Quick start
+```bash
 List snippets:
 devgen list
 
 Get a snippet:
 devgen get react-component.js
+```
+## Generate a project folder:
+```bash
 
-Generate a project folder:
 devgen gen-folder
 
-Generate Express app:
-devgen express-setup my-api-project
+```
+## Generate Full Express app:
+```bash
+devgen full-server-setup
 
-## Commands & examples
+```
+## Generate a server app:
+```bash
+devgen server-setup
 
-- List all snippets:
-  devgen list
-
-- devgen get <snippet-name>
-
-- Full Express setup:
-  devgen express-setup 
+```
 
 
 
@@ -85,7 +120,9 @@ MIT — see LICENSE for details.
 
 ## Author
 
-Mubassir Ahmed Bappi — Lead Web Developer, SM Technology  
+### Mubassir Ahmed Bappi 
+
+— Lead Web Developer, SM Technology  
 Contact: mubashirbappi@gmail.com
 
 

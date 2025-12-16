@@ -1,21 +1,30 @@
 {
-  "name": "dev-genius-tools",      
-  "version": "1.0.1",
+  "name": "dev-genius-tools",
+  "version": "1.1.0",
   "description": "Developer CLI toolkit with 20+ snippets, folder generator, and server setup commands.",
   "main": "index.js",
-  "bin": { 
-    "devgen": "./index.js" 
+  "bin": {
+    "devgen": "./index.js"
   },
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": ["cli", "snippets", "nodejs", "express", "developer"],
+  "keywords": [
+    "cli",
+    "snippets",
+    "nodejs",
+    "express",
+    "developer"
+  ],
   "author": "Bappi",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
     "body-parser": "^1.20.2",
-    "dotenv": "^16.3.1"
+    "chalk": "^5.6.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "inquirer": "^13.1.0",
+    "ora": "^9.0.0"
   }
 }
