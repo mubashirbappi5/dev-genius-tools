@@ -1,4 +1,5 @@
-const fs = require("fs");
+#!/usr/bin/env node
+import fs from "fs";
 
 const folders = [
   "controllers",

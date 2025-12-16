@@ -1,108 +1,140 @@
 #!/usr/bin/env node
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath, pathToFileURL } from "url";
 
+
+
+// version 
+function getVersion() {
+  const pkgPath = path.join(__dirname, "package.json");
+
+  if (!fs.existsSync(pkgPath)) {
+    return "unknown";
+  }
+
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+  return pkg.version || "unknown";
+}
+
+
+
+
+
+// ---------- ESM compatibility ----------
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// ---------- CLI args ----------
 const args = process.argv.slice(2);
 
-// ======== Snippets Path ========
 const snippetsDir = path.join(__dirname, "snippets");
 const generatorDir = path.join(__dirname, "generator");
 
-// ======== Commands ========
-if (args.length === 0) {
+// ---------- Helper: dynamic ESM import (Windows safe) ----------
+async function runGenerator(fileName) {
+  const modulePath = path.join(generatorDir, fileName);
+
+  if (!fs.existsSync(modulePath)) {
+    console.error(`❌ File not found: ${fileName}`);
+    process.exit(1);
+  }
+
+  try {
+    // 🔥 CRITICAL FIX FOR WINDOWS
+    const moduleURL = pathToFileURL(modulePath).href;
+    await import(moduleURL);
+    process.exit(0);
+  } catch (err) {
+    console.error("❌ Failed to run generator:");
+    console.error(err.message);
+    process.exit(1);
+  }
+}
+
+
+// version display
+
+if (args.includes("--version") || args.includes("-v")) {
+  console.log(`dev-genius-tools v${getVersion()}`);
+  process.exit(0);
+}
+
+
+// ---------- Usage ----------
+function showUsage() {
   console.log(`
+Dev Genius Tools 🚀
+
 Usage:
   devgen list
   devgen get <snippet-name>
   devgen gen-folder
+  devgen server-setup
+  devgen full-server-setup
+  devgen init
 `);
   process.exit(0);
 }
 
-// ======== List Snippets ========
-if (args[0] === "list") {
-  if (!fs.existsSync(snippetsDir)) {
-    console.log("❌ Snippets folder not found!");
-    process.exit(1);
-  }
-  const files = fs.readdirSync(snippetsDir);
-  console.log("Available snippets:");
-  files.forEach(f => console.log(" - " + f));
-  process.exit(0);
+// ---------- Main ----------
+if (args.length === 0) {
+  showUsage();
 }
 
-// ======== Get Snippet ========
-if (args[0] === "get") {
-  const name = args[1];
-  if (!name) return console.log("❌ Provide a snippet name");
+switch (args[0]) {
+  case "list": {
+    if (!fs.existsSync(snippetsDir)) {
+      console.error("❌ Snippets folder not found");
+      process.exit(1);
+    }
 
-  const filePath = path.join(snippetsDir, name);
-  if (!fs.existsSync(filePath)) {
-    return console.log("❌ Snippet not found");
+    const files = fs.readdirSync(snippetsDir);
+    if (files.length === 0) {
+      console.log("⚠ No snippets available");
+    } else {
+      console.log("Available snippets:");
+      files.forEach(f => console.log(" - " + f));
+    }
+    process.exit(0);
   }
 
-  const content = fs.readFileSync(filePath, "utf8");
+  case "get": {
+    const name = args[1];
+    if (!name) {
+      console.error("❌ Provide a snippet name");
+      process.exit(1);
+    }
 
-  // Write snippet to current working directory
-  const destPath = path.join(process.cwd(), name);
-  if (fs.existsSync(destPath)) {
-    console.log("⚠ File already exists in current folder");
-    process.exit(1);
+    const filePath = path.join(snippetsDir, name);
+    if (!fs.existsSync(filePath)) {
+      console.error("❌ Snippet not found");
+      process.exit(1);
+    }
+
+    const destPath = path.join(process.cwd(), name);
+    fs.writeFileSync(destPath, fs.readFileSync(filePath, "utf8"));
+    console.log(`✅ Snippet created: ${name}`);
+    process.exit(0);
   }
 
-  fs.writeFileSync(destPath, content);
-  console.log(`✅ Snippet created: ${name}`);
-  process.exit(0);
+  case "gen-folder":
+    await runGenerator("folderGen.js");
+    break;
+
+  case "server-setup":
+    await runGenerator("serverSetup.js");
+    break;
+
+  case "full-server-setup":
+    await runGenerator("fullExpressSetup.js");
+    break;
+
+  case "init":
+    await runGenerator("interactiveInit.js");
+    break;
+
+  default:
+    console.error("❌ Invalid command.");
+    showUsage();
 }
-
-// ======== Generate Folder ========
-if (args[0] === "gen-folder") {
-  const folderGenPath = path.join(generatorDir, "folderGen.js");
-  if (!fs.existsSync(folderGenPath)) {
-    console.log("❌ folderGen.js not found in generator folder!");
-    process.exit(1);
-  }
-  require(folderGenPath);
-  process.exit(0);
-}
-
-
-if (args[0] === "server-setup") {
-  const serverSetupPath = path.join(generatorDir, "serverSetup.js");
-  if (!fs.existsSync(serverSetupPath)) {
-    console.log("❌ serverSetup.js not found in generator folder!");
-    process.exit(1);
-  }
-  require(serverSetupPath);
-  process.exit(0);
-}
-
-
-//// full server setup 
-
-
-if (args[0] === "full-server-setup") {
-  const setupPath = path.join(generatorDir, "fullExpressSetup.js");
-  if (!fs.existsSync(setupPath)) {
-    console.log("❌ fullExpressSetup.js not found in generator folder!");
-    process.exit(1);
-  }
-  require(setupPath);
-  process.exit(0);
-}
-
-//========= Interactive Init ========
-if (args[0] === "init") {
-  const initPath = path.join(generatorDir, "interactiveInit.js");
-  if (!fs.existsSync(initPath)) {
-    console.log("❌ interactiveInit.js not found!");
-    process.exit(1);
-  }
-  require(initPath);
-  process.exit(0);
-}
-
-
-
-// ======== Invalid Command ========
-console.log("❌ Invalid command. Run `devgen` for help.");

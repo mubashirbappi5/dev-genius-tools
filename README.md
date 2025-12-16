@@ -2,7 +2,7 @@
 
 <div align="center">
   <img alt="Dev Genius Tools" src="https://img.shields.io/badge/Dev%20Genius%20Tools-CLI%20Toolkit-blue" />
-  <img alt="version" src="https://img.shields.io/badge/version-1.1.0-green" />
+  <img alt="version" src="https://img.shields.io/badge/version-2.0.0-green" />
   <img alt="license" src="https://img.shields.io/badge/license-MIT-yellow" />
   <img alt="downloads" src="https://img.shields.io/npm/dt/dev-genius-tools" />
 </div>
@@ -33,7 +33,7 @@ Optimized for **Node.js, Express, and MERN backend workflows**.
 
 Dev Genius Tools helps you avoid repetitive setup work by providing ready-made snippets, folder generators, and complete Express server scaffolding — all from a single CLI command.
 
-With **v1.1.0**, you can now create a **fully running local backend server interactively**.
+With **v2.2.0**, you can now create a **fully running local backend server interactively**.
 
 ---
 
