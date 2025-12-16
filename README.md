@@ -33,7 +33,7 @@ Optimized for **Node.js, Express, and MERN backend workflows**.
 
 Dev Genius Tools helps you avoid repetitive setup work by providing ready-made snippets, folder generators, and complete Express server scaffolding — all from a single CLI command.
 
-With **v2.2.0**, you can now create a **fully running local backend server interactively**.
+With **v2.0.0**, you can now create a **fully running local backend server interactively**.
 
 ---
 
